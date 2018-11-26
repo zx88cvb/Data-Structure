@@ -102,17 +102,27 @@ public class LinkedList<E> {
         return cur.e;
     }
 
-    // 获取链表第一个元素
+    /**
+     * 获取链表第一个元素
+     * @return 返回元素
+     */
     public E getFirst() {
         return get(0);
     }
 
-    // 获取链表最后一个元素
+    /**
+     * 获取链表最后一个元素
+     * @return 返回元素
+     */
     public E getLast() {
         return get(size-1);
     }
 
-    // 修改链表第index元素 (不常用)
+    /**
+     * 修改链表第index元素 (不常用)
+     * @param index 索引
+     * @param e 修改值
+     */
     public void set(int index, E e) {
         if (index < 0 || index > size){
             throw new IllegalArgumentException("set failed. Illegal index.");
@@ -125,7 +135,11 @@ public class LinkedList<E> {
         cur.e = e;
     }
 
-    // 查找链表中是否有元素e
+    /**
+     * 查找链表中是否有元素e
+     * @param e 被查找元素
+     * @return true or false
+     */
     public boolean contains(E e) {
         Node cur = dummyhead.next;
         while (cur != null) {
@@ -135,6 +149,43 @@ public class LinkedList<E> {
             cur = cur.next;
         }
         return false;
+    }
+
+    /**
+     * 根据索引删除元素
+     * @param index 索引
+     * @return 返回删除元素
+     */
+    public E remove (int index) {
+        if (index < 0 || index > size){
+            throw new IllegalArgumentException("remove failed. Illegal index.");
+        }
+        Node prev = dummyhead;
+        for (int i = 0; i < index; i ++) {
+            prev = prev.next;
+        }
+        Node retNode = prev.next;
+        prev.next = retNode.next;
+        retNode.next = null;
+        size --;
+
+        return retNode.e;
+    }
+
+    /**
+     * 删除链表中第一个元素
+     * @return 返回删除元素
+     */
+    public E removeFirst () {
+        return remove(0);
+    }
+
+    /**
+     * 删除链表中最后一个元素
+     * @return 返回删除元素
+     */
+    public E removeLast () {
+        return remove(size-1);
     }
 
     @Override
