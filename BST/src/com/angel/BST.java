@@ -1,5 +1,7 @@
 package com.angel;
 
+import java.util.Stack;
+
 /**
  * 二分搜索树
  * @author JingXiang Bi
@@ -106,6 +108,24 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    // 前序遍历(非递归遍历)
+    public void preOrderNR() {
+        // 创建栈
+        Stack<Node> stack = new Stack<>();
+        // node节点压入栈
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+
+            // 栈为前进后出 故先push 右子树
+            if (cur.right != null)
+                stack.push(cur.right);
+            if (cur.left != null)
+                stack.push(cur.left);
+        }
     }
 
     // 中序遍历
