@@ -1,5 +1,7 @@
 package com.angel;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -154,6 +156,131 @@ public class BST<E extends Comparable<E>> {
         postOrder(node.left);
         postOrder(node.right);
         System.out.println(node.e);
+    }
+
+    /**
+     * 二分搜索树层序遍历
+     */
+    public void levelOrder () {
+        // 创建队列
+        Queue<Node> queue = new LinkedList<>();
+
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            // 出队列 获取当前节点
+            Node cur = queue.remove();
+            System.out.println(cur.e);
+
+            if (cur.left != null)
+                queue.add(cur.left);
+            if (cur.right != null) {
+                queue.add(cur.right);
+            }
+        }
+    }
+
+    /**
+     * 寻找二分搜索树的最小元素
+     * @return 最小值
+     */
+    public E minimum () {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        return minimum(root).e;
+
+    }
+
+    /**
+     * 返回以node为根的二分搜索树最小值节点
+     * @param root 根节点
+     * @return 最小值节点
+     */
+    private Node minimum(Node root) {
+        if (root.left == null) {
+            return root;
+        }
+        return minimum(root.left);
+    }
+
+    /**
+     * 寻找二分搜索树的最大元素
+     * @return 最大值
+     */
+    public E maximum () {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        return maximum(root).e;
+
+    }
+
+    /**
+     * 返回以node为根的二分搜索树最大值节点
+     * @param root 根节点
+     * @return 最大值节点
+     */
+    private Node maximum(Node root) {
+        if (root.right == null) {
+            return root;
+        }
+        return maximum(root.right);
+    }
+
+    /**
+     * 从二分搜索树中删除最小值所在节点
+     * @return 最小值
+     */
+    public E removeMin () {
+        E ret = minimum();
+        root = removeMin(root);
+        return ret;
+    }
+
+    /**
+     * 删除以node为根的最小值节点
+     * @param root root为根节点
+     * @return 新的二分搜索树根
+     */
+    private Node removeMin(Node root) {
+        if (root.left == null) {
+            // 保存右子数
+            Node rightNode = root.right;
+            // 删除
+            root.right = null;
+            size--;
+            return rightNode;
+        }
+        root.left = removeMin(root.left);
+        return root;
+    }
+
+    /**
+     * 从二分搜索树中删除最大值所在节点
+     * @return 最大值
+     */
+    public E removeMax () {
+        E ret = maximum();
+        root = removeMax(root);
+        return ret;
+    }
+
+    /**
+     * 删除以node为根的最大值节点
+     * @param root root为根节点
+     * @return 新的二分搜索树根
+     */
+    private Node removeMax(Node root) {
+        if (root.right == null) {
+            // 保存左子数
+            Node leftNode = root.left;
+            // 删除
+            root.left = null;
+            size--;
+            return leftNode;
+        }
+        root.right = removeMax(root.right);
+        return root;
     }
 
     @Override

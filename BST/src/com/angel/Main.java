@@ -1,5 +1,7 @@
 package com.angel;
 
+import java.util.ArrayList;
+
 /**
  * @author JingXiang Bi
  * @date 2019/4/18
@@ -13,7 +15,7 @@ public class Main {
             bst.add(num);
         }
 
-        bst.preOrder();
+        /*bst.preOrder();
         System.out.println("-------------------------------------------");
 
         bst.preOrderNR();
@@ -26,7 +28,16 @@ public class Main {
         bst.postOrder();
 
         System.out.println("-------------------------------------------");
+        */
 
-        System.out.println(bst);
+        // bst.levelOrder();
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        while (!bst.isEmpty()) {
+            arrayList.add(bst.removeMin());
+        }
+        System.out.println(arrayList);
+
+        // System.out.println(bst);
     }
 }
