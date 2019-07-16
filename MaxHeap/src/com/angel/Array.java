@@ -176,6 +176,20 @@ public class Array<T> {
         }
     }
 
+    /**
+     * 交换两个索引之间的元素
+     * @param i 索引i
+     * @param j 索引j
+     */
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size) {
+            throw new IllegalArgumentException("index is illegal.");
+        }
+        T t = data[i];
+        data[i] = data[j];
+        data[j] = t;
+    }
+
 
     private void resize(int newCapacity) {
         T[] newData = (T[])new Object[newCapacity];

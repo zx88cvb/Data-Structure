@@ -64,4 +64,24 @@ public class MaxHeap<E extends Comparable<E>> {
     private int rightChild(int index) {
         return index * 2 + 2;
     }
+
+    /**
+     * 添加元素
+     * @param e 待添加元素
+     */
+    public void add (E e) {
+        data.addLast(e);
+        siftUp(data.getSize() - 1);
+    }
+
+    /**
+     * 元素上浮
+     * @param index 当前索引
+     */
+    private void siftUp(int index) {
+        while (index > 0 && data.get(parent(index)).compareTo(data.get(index)) < 0) {
+            data.swap(index, parent(index));
+            index = parent(index);
+        }
+    }
 }
