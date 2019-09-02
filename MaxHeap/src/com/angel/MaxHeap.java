@@ -84,4 +84,55 @@ public class MaxHeap<E extends Comparable<E>> {
             index = parent(index);
         }
     }
+
+    /**
+     * 查询堆中最大元素
+     * @return 最大元素值
+     */
+    public E findMax() {
+        if (data.getSize() == 0) {
+            throw new IllegalArgumentException("Can not findMax when heap is empty");
+        }
+        return data.get(0);
+    }
+
+    /**
+     * 取出堆中最大元素
+     * @return 元素值
+     */
+    public E extractMax() {
+        E ret = findMax();
+
+        // 交换位置
+        data.swap(0, data.getSize() - 1);
+        data.removeLast();
+
+        siftDown(0);
+        return ret;
+    }
+
+    /**
+     * 元素下沉
+     * @param index 索引
+     */
+    private void siftDown(int index) {
+        while (leftChild(index) < data.getSize()) {
+            // 获取当前节点的左孩子
+            int i = leftChild(index);
+            // 判断右孩子是否存在 且值是否大于左孩子
+            if (i + 1 < data.getSize() && data.get(i + 1).compareTo(data.get(i)) > 0) {
+                // 索引i赋值成右孩子的索引
+                i = rightChild(index);
+            }
+
+            // 如果index 元素大于 i 则满足二叉堆的性质 直接跳出循环
+            if (data.get(index).compareTo(data.get(i)) >= 0) {
+                break;
+            }
+
+            // 交换位置
+            data.swap(index, i);
+            index = i;
+        }
+    }
 }
